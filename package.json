@@ -1,0 +1,28 @@
+{
+  "name": "bringy2",
+  "version": "1.0.0",
+  "description": "A node express mongodb typescript project handling users' contacts",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NadaAhmedSaleh/ts-contact-book.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NadaAhmedSaleh/ts-contact-book/issues"
+  },
+  "homepage": "https://github.com/NadaAhmedSaleh/ts-contact-book#readme",
+  "devDependencies": {
+    "@types/config": "^3.3.0",
+    "@types/express": "^4.17.17",
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  }
+}
