@@ -1,0 +1,11 @@
+{
+    "connections": {
+        "mongo-connect": "mongodb://localhost:27017/bringy"
+    },
+    "secrets": {
+        "jwtPrivateKey": "Secret key"
+    },
+    "timers": {
+        "tokenLifeSpan": "3h"
+    }
+}

@@ -1,8 +1,16 @@
 const messages = {
   general: {
+    missingFieldsErr: "Some required fields are missing!",
     missingFieldErr: (field: string) => `${field} is missing!`,
     invalidErr: (field: string, rules: string) =>
       `${field} is invalid!\n${rules}`,
+  },
+  users: {
+    notMatchingPasswordsErr: "Passwords does't match please recheck!",
+    alreadyExists: (field: string, fieldValue: string) =>
+      `User with ${field}: ${fieldValue} already exists`,
+    signUpSuccess: (fullName: string) =>
+      `Welcome ${fullName}!\nyou signed up successfully.`,
   },
   regexErrs: {
     email:
@@ -12,8 +20,7 @@ const messages = {
     password:
       "Password should follow the following criteria:\n" +
       " 1- Password length has to be between 8 and 12\n" +
-      " 2- Password can only contain upper and lower cases english alphabet, special characters including '@ $ ! % * ? &' in addition to english numbers.\n" +
-      " 3- Password should contain at least one upper case character, one lower case character, one special character and one number.\n",
+      " 2- Password should contain at least one character and one digit.\n",
   },
 };
 export default messages;
