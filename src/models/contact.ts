@@ -1,27 +1,33 @@
 import mongoose from "mongoose";
+import User from "./user";
 
-const contactSchema = new mongoose.Schema({
-  firstName: {
-    type: String,
-    required: true,
+const contactSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: User,
+      required: true,
+      index: true,
+    },
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
+      type: String,
+    },
+    phoneNumber: {
+      type: String,
+    },
+    email: {
+      type: String,
+    },
+    birthDate: {
+      type: Date,
+    },
   },
-  lastName: {
-    type: String,
-    required: true,
-  },
-  phoneNumber: {
-    type: String,
-    required: true,
-  },
-  emailAddress: {
-    type: String,
-    required: true,
-  },
-  birthDate: {
-    type: Date,
-    required: true,
-  },
-});
+  { timestamps: true }
+);
 
 //------------------------------------------------------------------------------
 const Contact = mongoose.model("Contact", contactSchema);

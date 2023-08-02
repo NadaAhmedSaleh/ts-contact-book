@@ -6,6 +6,13 @@ import { merge } from "lodash";
 
 import messages from "../utils/messages";
 import User from "../models/user";
+import mongoose from "mongoose";
+
+interface AuthenticatedRequest extends express.Request {
+  user: {
+    id: mongoose.Types.ObjectId;
+  };
+}
 
 const auth = async (
   req: express.Request,
@@ -30,6 +37,9 @@ const auth = async (
     ) as JwtPayload;
 
     const user = await User.findById(decoded.user.id).lean();
+    if (!user) {
+      return { status: 404, message: messages.general.notFoundErr("User") };
+    }
 
     // Add the decoded user object to the request object for further use
     merge(req, { user: decoded.user });
@@ -44,3 +54,4 @@ const auth = async (
 };
 
 export default auth;
+export { AuthenticatedRequest };

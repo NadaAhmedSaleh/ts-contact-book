@@ -24,7 +24,7 @@ const validateAndHashPassword = async (
       status: 400,
       message: messages.general.invalidErr(
         "Password",
-        messages.regexErrs.password
+        messages.fieldsErrs.password
       ),
     };
   }
@@ -70,14 +70,14 @@ const createUser = async (
         status: 400,
         message: messages.general.invalidErr(
           "Phone number",
-          messages.regexErrs.phoneNumber
+          messages.fieldsErrs.phoneNumber
         ),
       };
     }
     if (!new RegExp(regExs.email).test(email)) {
       return {
         status: 400,
-        message: messages.general.invalidErr("Email", messages.regexErrs.email),
+        message: messages.general.invalidErr("Email", messages.fieldsErrs.email),
       };
     }
     const { status, message, hashedPassword } = await validateAndHashPassword(
