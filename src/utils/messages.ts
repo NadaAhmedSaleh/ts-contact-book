@@ -11,6 +11,8 @@ const messages = {
       `User with ${field}: ${fieldValue} already exists`,
     signUpSuccess: (fullName: string) =>
       `Welcome ${fullName}!\nyou signed up successfully.`,
+    logInErr: (loginField: string) => `Wrong ${loginField} or password!`,
+    logInSuccess: (fullName: string) => `Welcome ${fullName} 😄`,
   },
   regexErrs: {
     email:

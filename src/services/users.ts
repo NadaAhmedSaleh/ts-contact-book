@@ -1,6 +1,5 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import randtoken from "rand-token";
 import mongoose from "mongoose";
 import config from "config";
 import messages from "../utils/messages";
@@ -116,4 +115,24 @@ const createUser = async (
   }
 };
 //------------------------------------------------------------------------------
-export { createUser };
+const signIn = async (phoneNumber: string, email: string, password: string) => {
+  if (!password || (!phoneNumber && !email)) {
+    return { status: 400, message: messages.general.missingFieldsErr };
+  }
+  const user = await User.findOne(
+    phoneNumber ? { phoneNumber } : { email } // sign in using email or phone
+  ).lean();
+  if (!user || !(await bcrypt.compare(password, user.password))) {
+    return {
+      status: 404,
+      message: messages.users.logInErr(phoneNumber ? "phone number" : "email"),
+    };
+  }
+  return {
+    status: 200,
+    message: messages.users.logInSuccess(user.fullName),
+    accessToken: generateToken(user._id, user.email),
+  };
+};
+//------------------------------------------------------------------------------
+export { createUser, signIn };
