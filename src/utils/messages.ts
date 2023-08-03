@@ -1,4 +1,9 @@
 const messages = {
+  fieldsNames: {
+    phoneNumber: "Phone number",
+    email: "Email",
+    password: "Password",
+  },
   general: {
     missingFieldsErr: "Some required fields are missing!",
     missingFieldErr: (field: string) => `${field} is missing!`,

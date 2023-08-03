@@ -23,7 +23,7 @@ const validateAndHashPassword = async (
     return {
       status: 400,
       message: messages.general.invalidErr(
-        "Password",
+        messages.fieldsNames.password,
         messages.fieldsErrs.password
       ),
     };
@@ -69,7 +69,7 @@ const createUser = async (
       return {
         status: 400,
         message: messages.general.invalidErr(
-          "Phone number",
+          messages.fieldsNames.phoneNumber,
           messages.fieldsErrs.phoneNumber
         ),
       };
@@ -77,7 +77,10 @@ const createUser = async (
     if (!new RegExp(regExs.email).test(email)) {
       return {
         status: 400,
-        message: messages.general.invalidErr("Email", messages.fieldsErrs.email),
+        message: messages.general.invalidErr(
+          messages.fieldsNames.email,
+          messages.fieldsErrs.email
+        ),
       };
     }
     const { status, message, hashedPassword } = await validateAndHashPassword(
@@ -93,14 +96,20 @@ const createUser = async (
     if (user) {
       return {
         status: 400,
-        message: messages.users.alreadyExists("email", email),
+        message: messages.users.alreadyExists(
+          messages.fieldsNames.email,
+          email
+        ),
       };
     }
     user = await User.findOne({ phoneNumber }).lean();
     if (user) {
       return {
         status: 400,
-        message: messages.users.alreadyExists("phone number", phoneNumber),
+        message: messages.users.alreadyExists(
+          messages.fieldsNames.phoneNumber,
+          phoneNumber
+        ),
       };
     }
     user = new User({ fullName, phoneNumber, email, password: hashedPassword });
@@ -125,7 +134,11 @@ const signIn = async (phoneNumber: string, email: string, password: string) => {
   if (!user || !(await bcrypt.compare(password, user.password))) {
     return {
       status: 404,
-      message: messages.users.logInErr(phoneNumber ? "phone number" : "email"),
+      message: messages.users.logInErr(
+        phoneNumber
+          ? messages.fieldsNames.phoneNumber
+          : messages.fieldsNames.email
+      ),
     };
   }
   return {
@@ -135,4 +148,4 @@ const signIn = async (phoneNumber: string, email: string, password: string) => {
   };
 };
 //------------------------------------------------------------------------------
-export { createUser, signIn };
+export { generateToken, createUser, signIn };

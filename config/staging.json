@@ -1,6 +1,6 @@
 {
     "connections": {
-        "mongo-connect": "mongodb://localhost:27017/bringy"
+        "mongo-connect": "mongodb://localhost:27017/staging"
     },
     "secrets": {
         "jwtPrivateKey": "Secret key"
