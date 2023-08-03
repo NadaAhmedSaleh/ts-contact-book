@@ -1,5 +1,4 @@
 import mongoose, { isValidObjectId } from "mongoose";
-import moment from "moment";
 import messages from "../utils/messages";
 import isValidPhoneNumber from "../utils/isValidPhoneNumber";
 import regExs from "../utils/regExs";
@@ -17,6 +16,7 @@ const addContact = async (
 ) => {
   try {
     if (!firstName || (!phoneNumber && !email)) {
+      console.log({ firstName, phoneNumber, email });
       // user should enter at least one of phoneNumber or email to save in the contact
       return { status: 400, message: messages.general.missingFieldsErr };
     }
