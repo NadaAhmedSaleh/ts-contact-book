@@ -7,6 +7,14 @@ import regExs from "../utils/regExs";
 import isValidPhoneNumber from "../utils/isValidPhoneNumber";
 import User from "../models/user";
 //------------------------------------------------------------------------------
+/**
+ * - checks that:
+ *   - password is same as confirm password
+ *   - password follows the required password regex
+ * @param password
+ * @param confirmPassword
+ * @returns - the hashed password to be saved in db
+ */
 const validateAndHashPassword = async (
   password: string,
   confirmPassword: string
@@ -37,6 +45,12 @@ const validateAndHashPassword = async (
   };
 };
 //------------------------------------------------------------------------------
+/**
+ * - generated jwt access token for user
+ * @param userId
+ * @param email
+ * @returns - the jwt token
+ */
 const generateToken = (userId: mongoose.Types.ObjectId, email: string) => {
   return jwt.sign(
     {
@@ -51,6 +65,16 @@ const generateToken = (userId: mongoose.Types.ObjectId, email: string) => {
 };
 
 //------------------------------------------------------------------------------
+/**
+ * - creates a new user in db
+ * @param fullName
+ * @param phoneNumber
+ * @param email
+ * @param password
+ * @param confirmPassword
+ * @returns - success/err message, status code, and access token incase of success
+ *
+ */
 const createUser = async (
   fullName: string,
   phoneNumber: string,
@@ -124,6 +148,13 @@ const createUser = async (
   }
 };
 //------------------------------------------------------------------------------
+/**
+ * - sign in using email or phoneNumber
+ * @param phoneNumber - either phoneNumber or email should be given
+ * @param email
+ * @param password
+ * @returns - status code, err message incase of failure and access token incase success
+ */
 const signIn = async (phoneNumber: string, email: string, password: string) => {
   if (!password || (!phoneNumber && !email)) {
     return { status: 400, message: messages.general.missingFieldsErr };

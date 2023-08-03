@@ -6,6 +6,16 @@ import Contact from "../models/contact";
 import validateBirthDate from "../utils/validateBirthDate";
 import equalIds from "../utils/equalObjectIds";
 
+/**
+ * - adds a new contact in db
+ * @param userId - id of user who is adding the contact
+ * @param firstName
+ * @param lastName
+ * @param phoneNumber
+ * @param email
+ * @param birthDate
+ * @returns - status code and success/err message
+ */
 const addContact = async (
   userId: mongoose.Types.ObjectId,
   firstName: string,
@@ -93,6 +103,11 @@ const addContact = async (
   }
 };
 //------------------------------------------------------------------------------
+/**
+ * - gets all user's saved contacts
+ * @param userId
+ * @returns array od user's  contacts
+ */
 const getUserContacts = async (userId: mongoose.Types.ObjectId) => {
   try {
     const contacts = await Contact.find({ userId }).lean();
@@ -104,6 +119,12 @@ const getUserContacts = async (userId: mongoose.Types.ObjectId) => {
   }
 };
 //------------------------------------------------------------------------------
+/**
+ * - gets a specific user contact by id
+ * @param userId - id of user who saves this contact
+ * @param contactId
+ * @returns - status code and err message incase of failure and contact obj incase of success
+ */
 const getContactById = async (
   userId: mongoose.Types.ObjectId,
   contactId: string
@@ -126,6 +147,12 @@ const getContactById = async (
   }
 };
 //------------------------------------------------------------------------------
+/**
+ * - deletes a contact by id
+ * @param userId - id of user deleting the contact
+ * @param contactId
+ * @returns - status code and success/err message
+ */
 const deleteContactById = async (
   userId: mongoose.Types.ObjectId,
   contactId: string
